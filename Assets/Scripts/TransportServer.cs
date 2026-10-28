@@ -10,7 +10,6 @@ public class TransportServer : MonoBehaviour
 {
 	private UdpClient client;
 	private CancellationTokenSource cts;
-	private Task pollTask;
 
 	public void StartServer(int port)
 	{
@@ -20,7 +19,7 @@ public class TransportServer : MonoBehaviour
 			client = new UdpClient(port);
 			cts = new CancellationTokenSource();
 			Debug.Log("Polling messages");
-			pollTask = Task.Run(() => PollMessages(cts.Token), cts.Token);
+			Task.Run(() => PollMessages(cts.Token), cts.Token);
 		}
 		catch (Exception e)
 		{
@@ -28,10 +27,10 @@ public class TransportServer : MonoBehaviour
 		}
 	}
 
-	private void PollMessages(CancellationToken cts)
+	private void PollMessages(CancellationToken token)
 	{
 		IPEndPoint ep = null;
-		while (!cts.IsCancellationRequested)
+		while (!token.IsCancellationRequested)
 		{
 			try
 			{
@@ -52,6 +51,5 @@ public class TransportServer : MonoBehaviour
 		cts?.Cancel();
 		client?.Close();
 		cts = null;
-		pollTask = null;
 	}
 }

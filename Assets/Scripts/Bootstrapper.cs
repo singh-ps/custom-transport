@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class Bootstrapper : MonoBehaviour
 {
+	[SerializeField] private int port = 3030;
 	[SerializeField] private TransportClient client;
 	[SerializeField] private string address;
 	[SerializeField] private TransportServer server;
@@ -11,7 +12,7 @@ public class Bootstrapper : MonoBehaviour
 	{
 		if (server != null)
 		{
-			server.StartServer(3030);
+			server.StartServer(port);
 		}
 
 		if (client != null)
@@ -22,7 +23,7 @@ public class Bootstrapper : MonoBehaviour
 				{
 					ipAddress = IPAddress.Loopback;
 				}
-				client.ConnectClient(ipAddress, 3030);
+				client.ConnectClient(ipAddress, port);
 				client.Send("Sending first message");
 			}
 			else

@@ -24,21 +24,20 @@ public class TransportClient : MonoBehaviour
 	{
 		if (client == null)
 		{
-			Debug.Log("Client is null");
+			Debug.LogError("Client is null");
 			return;
 		}
 
 		byte[] txMsg = Encoding.UTF8.GetBytes(message);
-		
+
 		try
 		{
-			client.SendAsync(txMsg, txMsg.Length);
+			client.Send(txMsg, txMsg.Length);
 		}
 		catch (Exception e)
 		{
 			Debug.LogError($"Error while sending message: {e.Message}");
 		}
-		
 	}
 
 	private void OnApplicationQuit()
