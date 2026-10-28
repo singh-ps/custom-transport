@@ -29,15 +29,19 @@ public class UdpClient : MonoBehaviour
 		}
 
 		byte[] txMsg = Encoding.UTF8.GetBytes(message);
-
-		try
+		
+		Task.Run(async () =>
 		{
-			Task.Run(async () => { await client.SendAsync(txMsg, txMsg.Length); });
-		}
-		catch (Exception e)
-		{
-			Debug.LogError($"Error while sending message: {e.Message}");
-		}
+			try
+			{
+				await client.SendAsync(txMsg, txMsg.Length);
+			}
+			catch (Exception e)
+			{
+				Debug.LogError($"Error while sending message: {e.Message}");
+			}
+		});
+		
 	}
 
 	private void OnApplicationQuit()

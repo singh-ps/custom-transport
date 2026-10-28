@@ -41,8 +41,11 @@ public class UdpServer : MonoBehaviour
 
 	private void OnApplicationQuit()
 	{
-		cts.Cancel();
-		cts = null;
-		pollTask = null;
+		if (cts != null)
+		{
+			cts.Cancel();
+			cts = null;
+			pollTask = null;
+		}
 	}
 }
