@@ -1,0 +1,150 @@
+# ---------------------------------------------------------------------------
+# Line endings
+# ---------------------------------------------------------------------------
+# Normalize all text to LF in the repo; checkout uses platform default
+# unless overridden below.
+* text=auto
+
+# C# source: CRLF in working copy (Visual Studio default on Windows)
+*.cs        text diff=csharp eol=crlf
+*.csproj    text eol=crlf
+*.sln       text eol=crlf
+
+# Shaders / code
+*.shader    text
+*.cginc     text
+*.hlsl      text
+*.compute   text
+*.uss       text
+*.uxml      text
+
+# Data / config
+*.json      text
+*.asmdef    text
+*.asmref    text
+*.inputactions text
+*.md        text
+*.txt       text
+*.xml       text
+*.yml       text
+*.yaml      text
+
+# Shell scripts must stay LF
+*.sh        text eol=lf
+
+# ---------------------------------------------------------------------------
+# Unity YAML (force text serialization in Project Settings > Editor)
+# Merged with UnityYAMLMerge (Smart Merge). Unity writes these with LF.
+# ---------------------------------------------------------------------------
+*.meta              text eol=lf merge=unityyamlmerge
+*.unity             text eol=lf merge=unityyamlmerge linguist-generated
+*.prefab            text eol=lf merge=unityyamlmerge linguist-generated
+*.asset             text eol=lf merge=unityyamlmerge linguist-generated
+*.mat               text eol=lf merge=unityyamlmerge linguist-generated
+*.anim              text eol=lf merge=unityyamlmerge linguist-generated
+*.controller        text eol=lf merge=unityyamlmerge linguist-generated
+*.overrideController text eol=lf merge=unityyamlmerge linguist-generated
+*.physicMaterial    text eol=lf merge=unityyamlmerge linguist-generated
+*.physicsMaterial2D text eol=lf merge=unityyamlmerge linguist-generated
+*.playable          text eol=lf merge=unityyamlmerge linguist-generated
+*.mask              text eol=lf merge=unityyamlmerge linguist-generated
+*.brush             text eol=lf merge=unityyamlmerge linguist-generated
+*.flare             text eol=lf merge=unityyamlmerge linguist-generated
+*.fontsettings      text eol=lf merge=unityyamlmerge linguist-generated
+*.guiskin           text eol=lf merge=unityyamlmerge linguist-generated
+*.giparams          text eol=lf merge=unityyamlmerge linguist-generated
+*.renderTexture     text eol=lf merge=unityyamlmerge linguist-generated
+*.spriteatlas       text eol=lf merge=unityyamlmerge linguist-generated
+*.spriteatlasv2     text eol=lf merge=unityyamlmerge linguist-generated
+*.terrainlayer      text eol=lf merge=unityyamlmerge linguist-generated
+*.mixer             text eol=lf merge=unityyamlmerge linguist-generated
+*.shadervariants    text eol=lf merge=unityyamlmerge linguist-generated
+*.preset            text eol=lf merge=unityyamlmerge linguist-generated
+*.signal            text eol=lf merge=unityyamlmerge linguist-generated
+*.lighting          text eol=lf merge=unityyamlmerge linguist-generated
+*.cubemap           text eol=lf merge=unityyamlmerge linguist-generated
+
+# ---------------------------------------------------------------------------
+# Git LFS — binary assets
+# ---------------------------------------------------------------------------
+# Images
+*.png   filter=lfs diff=lfs merge=lfs -text
+*.jpg   filter=lfs diff=lfs merge=lfs -text
+*.jpeg  filter=lfs diff=lfs merge=lfs -text
+*.gif   filter=lfs diff=lfs merge=lfs -text
+*.bmp   filter=lfs diff=lfs merge=lfs -text
+*.tga   filter=lfs diff=lfs merge=lfs -text
+*.tif   filter=lfs diff=lfs merge=lfs -text
+*.tiff  filter=lfs diff=lfs merge=lfs -text
+*.psd   filter=lfs diff=lfs merge=lfs -text
+*.psb   filter=lfs diff=lfs merge=lfs -text
+*.exr   filter=lfs diff=lfs merge=lfs -text
+*.hdr   filter=lfs diff=lfs merge=lfs -text
+*.iff   filter=lfs diff=lfs merge=lfs -text
+*.pict  filter=lfs diff=lfs merge=lfs -text
+*.webp  filter=lfs diff=lfs merge=lfs -text
+*.ai    filter=lfs diff=lfs merge=lfs -text
+*.svg   filter=lfs diff=lfs merge=lfs -text
+
+# 3D models
+*.fbx   filter=lfs diff=lfs merge=lfs -text
+*.obj   filter=lfs diff=lfs merge=lfs -text
+*.blend filter=lfs diff=lfs merge=lfs -text
+*.max   filter=lfs diff=lfs merge=lfs -text
+*.ma    filter=lfs diff=lfs merge=lfs -text
+*.mb    filter=lfs diff=lfs merge=lfs -text
+*.3ds   filter=lfs diff=lfs merge=lfs -text
+*.dae   filter=lfs diff=lfs merge=lfs -text
+*.glb   filter=lfs diff=lfs merge=lfs -text
+*.gltf  filter=lfs diff=lfs merge=lfs -text
+*.c4d   filter=lfs diff=lfs merge=lfs -text
+*.dxf   filter=lfs diff=lfs merge=lfs -text
+*.usd   filter=lfs diff=lfs merge=lfs -text
+*.usdz  filter=lfs diff=lfs merge=lfs -text
+
+# Audio
+*.wav   filter=lfs diff=lfs merge=lfs -text
+*.mp3   filter=lfs diff=lfs merge=lfs -text
+*.ogg   filter=lfs diff=lfs merge=lfs -text
+*.aif   filter=lfs diff=lfs merge=lfs -text
+*.aiff  filter=lfs diff=lfs merge=lfs -text
+*.flac  filter=lfs diff=lfs merge=lfs -text
+*.mod   filter=lfs diff=lfs merge=lfs -text
+*.it    filter=lfs diff=lfs merge=lfs -text
+*.s3m   filter=lfs diff=lfs merge=lfs -text
+*.xm    filter=lfs diff=lfs merge=lfs -text
+*.bank  filter=lfs diff=lfs merge=lfs -text
+
+# Video
+*.mp4   filter=lfs diff=lfs merge=lfs -text
+*.mov   filter=lfs diff=lfs merge=lfs -text
+*.webm  filter=lfs diff=lfs merge=lfs -text
+*.avi   filter=lfs diff=lfs merge=lfs -text
+
+# Fonts
+*.ttf   filter=lfs diff=lfs merge=lfs -text
+*.otf   filter=lfs diff=lfs merge=lfs -text
+
+# Binary Unity data / native libs
+*.cubemap.bin filter=lfs diff=lfs merge=lfs -text
+*.dll   filter=lfs diff=lfs merge=lfs -text
+*.so    filter=lfs diff=lfs merge=lfs -text
+*.dylib filter=lfs diff=lfs merge=lfs -text
+*.a     filter=lfs diff=lfs merge=lfs -text
+*.bundle filter=lfs diff=lfs merge=lfs -text
+*.aar   filter=lfs diff=lfs merge=lfs -text
+*.jar   filter=lfs diff=lfs merge=lfs -text
+
+# Archives / docs
+*.zip   filter=lfs diff=lfs merge=lfs -text
+*.7z    filter=lfs diff=lfs merge=lfs -text
+*.rar   filter=lfs diff=lfs merge=lfs -text
+*.gz    filter=lfs diff=lfs merge=lfs -text
+*.unitypackage filter=lfs diff=lfs merge=lfs -text
+*.pdf   filter=lfs diff=lfs merge=lfs -text
+
+# Lighting / terrain / nav bakes (binary)
+LightingData.asset filter=lfs diff=lfs merge=lfs -text
+Lightmap-*.exr     filter=lfs diff=lfs merge=lfs -text
+NavMesh*.asset     filter=lfs diff=lfs merge=lfs -text
+*.raw   filter=lfs diff=lfs merge=lfs -text
