@@ -1,7 +1,6 @@
 using System;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class UdpClient : MonoBehaviour
@@ -17,30 +16,28 @@ public class UdpClient : MonoBehaviour
 		}
 		catch (Exception e)
 		{
-			Debug.LogError($"Something went wrong while creating client or connecting to address {address.ToString()}. Error: {e.Message}");
+			Debug.LogError($"Something went wrong while creating client or connecting to address {address}. Error: {e.Message}");
 		}
 	}
 
-	public void SendMessage(string message)
+	public void Send(string message)
 	{
 		if (client == null)
 		{
 			Debug.Log("Client is null");
+			return;
 		}
 
 		byte[] txMsg = Encoding.UTF8.GetBytes(message);
 		
-		Task.Run(async () =>
+		try
 		{
-			try
-			{
-				await client.SendAsync(txMsg, txMsg.Length);
-			}
-			catch (Exception e)
-			{
-				Debug.LogError($"Error while sending message: {e.Message}");
-			}
-		});
+			client.SendAsync(txMsg, txMsg.Length);
+		}
+		catch (Exception e)
+		{
+			Debug.LogError($"Error while sending message: {e.Message}");
+		}
 		
 	}
 

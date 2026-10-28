@@ -27,25 +27,30 @@ public class UdpServer : MonoBehaviour
 		}
 	}
 
-	private Task PollMessages(CancellationToken cts)
+	private void PollMessages(CancellationToken cts)
 	{
 		IPEndPoint ep = null;
-		while (true)
+		while (!cts.IsCancellationRequested)
 		{
-			cts.ThrowIfCancellationRequested();
-			byte[] rxBytes = client.Receive(ref ep);
-			string rxMsg = Encoding.UTF8.GetString(rxBytes);
-			Debug.Log($"From: {ep.Address} -> Message: {rxMsg}");
+			try
+			{
+				byte[] rxBytes = client.Receive(ref ep);
+				string rxMsg = Encoding.UTF8.GetString(rxBytes);
+				Debug.Log($"From: {ep.Address} -> Message: {rxMsg}");
+			}
+			catch (Exception e)
+			{
+				Debug.LogError($"Server receive failed: {e}");
+				return;
+			}
 		}
 	}
 
 	private void OnApplicationQuit()
 	{
-		if (cts != null)
-		{
-			cts.Cancel();
-			cts = null;
-			pollTask = null;
-		}
+		cts?.Cancel();
+		client?.Close();
+		cts = null;
+		pollTask = null;
 	}
 }

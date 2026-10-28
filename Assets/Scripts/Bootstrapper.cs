@@ -23,7 +23,7 @@ public class Bootstrapper : MonoBehaviour
 					ipAddress = IPAddress.Loopback;
 				}
 				client.ConnectClient(ipAddress, 3030);
-				client.SendMessage("Sending first message");
+				client.Send("Sending first message");
 			}
 			else
 			{
