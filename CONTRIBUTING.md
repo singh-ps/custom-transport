@@ -133,9 +133,12 @@ Line endings and encoding are owned by `.gitattributes` and `.editorconfig`, so 
 - Unity: **Preferences > External Tools > External Script Editor:** Visual Studio.
 - `git config --global core.longpaths true` (avoids MAX_PATH failures in deep Library/Packages paths).
 
+- **Format on save** (per-user setting, not stored in the repo): Tools > Options > Text Editor > Code Cleanup > tick **Run Code Cleanup profile on Save**. Then click **Configure Code Cleanup** and make sure the active profile includes **Format document** and **Sort usings**.
+
 ### macOS — VS Code
 - Install the recommended extensions when prompted (`.vscode/extensions.json`): **Unity**, **C# Dev Kit**, **EditorConfig**. Without the EditorConfig extension, VS Code ignores `.editorconfig`; `.vscode/settings.json` mirrors the key rules as a fallback.
 - C# Dev Kit applies the `.editorconfig` formatting, naming and `var` rules through Roslyn, same as Visual Studio.
+- Format on save and sorting usings on save are already configured in `.vscode/settings.json`; nothing to set up.
 - Unity: **Preferences > External Tools > External Script Editor:** Visual Studio Code.
 - Git LFS: `brew install git-lfs && git lfs install`.
 

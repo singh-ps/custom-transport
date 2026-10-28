@@ -7,7 +7,12 @@
     "editor.tabSize": 4,
     "editor.detectIndentation": false,
     "[csharp]": {
-        "files.eol": "\r\n"
+        "files.eol": "\r\n",
+        "editor.defaultFormatter": "ms-dotnettools.csharp",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit"
+        }
     },
     "[markdown]": {
         "files.trimTrailingWhitespace": false
