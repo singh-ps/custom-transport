@@ -1,11 +1,14 @@
 using System;
 using System.Net;
-using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
-public class TransportClient : MonoBehaviour
+public class TransportClient : MonoBehaviour, ITransponder
 {
 	private System.Net.Sockets.UdpClient client;
+	public event Action<byte[]> OnReceive;
+	private CancellationTokenSource cts;
 
 	public void ConnectClient(IPAddress address, int port)
 	{
@@ -13,6 +16,9 @@ public class TransportClient : MonoBehaviour
 		{
 			client = new System.Net.Sockets.UdpClient();
 			client.Connect(address, port);
+			cts = new CancellationTokenSource();
+			Debug.Log("Polling messages");
+			Task.Run(() => PollPackets(cts.Token), cts.Token);
 		}
 		catch (Exception e)
 		{
@@ -20,7 +26,12 @@ public class TransportClient : MonoBehaviour
 		}
 	}
 
-	public void Send(string message)
+	public void Receive(byte[] buffer)
+	{
+		throw new NotImplementedException();
+	}
+
+	public void Transmit(byte[] buffer)
 	{
 		if (client == null)
 		{
@@ -28,20 +39,38 @@ public class TransportClient : MonoBehaviour
 			return;
 		}
 
-		byte[] txMsg = Encoding.UTF8.GetBytes(message);
-
 		try
 		{
-			client.Send(txMsg, txMsg.Length);
+			client.Send(buffer, buffer.Length);
 		}
 		catch (Exception e)
 		{
-			Debug.LogError($"Error while sending message: {e.Message}");
+			Debug.LogError($"Error while sending byte buffer: {e.Message}");
+		}
+	}
+
+	private void PollPackets(CancellationToken token)
+	{
+		IPEndPoint ep = null;
+		while (!token.IsCancellationRequested)
+		{
+			try
+			{
+				byte[] rxBytes = client.Receive(ref ep);
+				OnReceive?.Invoke(rxBytes);
+			}
+			catch (Exception e)
+			{
+				Debug.LogError($"Client receive failed: {e}");
+				return;
+			}
 		}
 	}
 
 	private void OnApplicationQuit()
 	{
+		cts?.Cancel();
 		client?.Close();
+		cts = null;
 	}
 }

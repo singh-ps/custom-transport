@@ -1,15 +1,17 @@
 using System;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class TransportServer : MonoBehaviour
+public class TransportServer : MonoBehaviour, ITransponder
 {
 	private UdpClient client;
 	private CancellationTokenSource cts;
+	public event Action<byte[]> OnReceive;
+
+	private IPEndPoint remote = null;
 
 	public void StartServer(int port)
 	{
@@ -18,8 +20,8 @@ public class TransportServer : MonoBehaviour
 			Debug.Log("Starting Server");
 			client = new UdpClient(port);
 			cts = new CancellationTokenSource();
-			Debug.Log("Polling messages");
-			Task.Run(() => PollMessages(cts.Token), cts.Token);
+			Debug.Log("Polling Packets");
+			Task.Run(() => PollPackets(cts.Token), cts.Token);
 		}
 		catch (Exception e)
 		{
@@ -27,16 +29,24 @@ public class TransportServer : MonoBehaviour
 		}
 	}
 
-	private void PollMessages(CancellationToken token)
+	public void Transmit(byte[] buffer)
 	{
-		IPEndPoint ep = null;
+		if (remote == null)
+		{
+			return;
+		}
+
+		client.Send(buffer, buffer.Length, remote);
+	}
+
+	private void PollPackets(CancellationToken token)
+	{
 		while (!token.IsCancellationRequested)
 		{
 			try
 			{
-				byte[] rxBytes = client.Receive(ref ep);
-				string rxMsg = Encoding.UTF8.GetString(rxBytes);
-				Debug.Log($"From: {ep.Address} -> Message: {rxMsg}");
+				byte[] rxBytes = client.Receive(ref remote);
+				OnReceive?.Invoke(rxBytes);
 			}
 			catch (Exception e)
 			{
