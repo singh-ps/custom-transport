@@ -3,7 +3,7 @@ using System.Net;
 using System.Text;
 using UnityEngine;
 
-public class UdpClient : MonoBehaviour
+public class TransportClient : MonoBehaviour
 {
 	private System.Net.Sockets.UdpClient client;
 

@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class Bootstrapper : MonoBehaviour
 {
-	[SerializeField] private UdpClient client;
+	[SerializeField] private TransportClient client;
 	[SerializeField] private string address;
-	[SerializeField] private UdpServer server;
+	[SerializeField] private TransportServer server;
 
 	private void Start()
 	{

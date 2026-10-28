@@ -1,13 +1,14 @@
 using System;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
-public class UdpServer : MonoBehaviour
+public class TransportServer : MonoBehaviour
 {
-	private System.Net.Sockets.UdpClient client;
+	private UdpClient client;
 	private CancellationTokenSource cts;
 	private Task pollTask;
 
@@ -16,7 +17,7 @@ public class UdpServer : MonoBehaviour
 		try
 		{
 			Debug.Log("Starting Server");
-			client = new System.Net.Sockets.UdpClient(port);
+			client = new UdpClient(port);
 			cts = new CancellationTokenSource();
 			Debug.Log("Polling messages");
 			pollTask = Task.Run(() => PollMessages(cts.Token), cts.Token);
