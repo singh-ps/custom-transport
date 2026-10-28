@@ -426,6 +426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bootstrapper
   client: {fileID: 1464697752}
+  address: 127.0.0.1
   server: {fileID: 1411031085}
 --- !u!4 &1764898880
 Transform:

@@ -42,6 +42,6 @@ public class UdpClient : MonoBehaviour
 
 	private void OnApplicationQuit()
 	{
-		client.Close();
+		client?.Close();
 	}
 }

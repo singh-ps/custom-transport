@@ -15,8 +15,10 @@ public class UdpServer : MonoBehaviour
 	{
 		try
 		{
+			Debug.Log("Starting Server");
 			client = new System.Net.Sockets.UdpClient(port);
 			cts = new CancellationTokenSource();
+			Debug.Log("Polling messages");
 			pollTask = Task.Run(() => PollMessages(cts.Token), cts.Token);
 		}
 		catch (Exception e)
